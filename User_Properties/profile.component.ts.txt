@@ -1,0 +1,25 @@
+ ngOnInit() 
+{
+    
+console.log(localStorage.getItem('UserEmailID'));
+    
+this.userservice.getUIDbyEmail(localStorage.getItem('UserEmailID')).subscribe( data => {
+   
+   this.userid = data ;
+      console.log('data '+data)
+      console.log('userid'+this.userid),
+    
+  this.userservice.getUserById(this.userid).subscribe( data => {
+   
+     this.user = data as User
+        this.uid = this.user.UserId
+
+        this.userservice.getPropertyList(this.uid).subscribe( data => {
+   
+       this.userservice.PropertyList = new Array<Property>();
+          this.userservice.PropertyList = data as Property[]
+          console.log(this.userservice.PropertyList)
+        })
+    } )
+    
+    })
